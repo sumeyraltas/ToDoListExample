@@ -5,93 +5,116 @@
 //  Created by Sumeyra Altas on 6.11.2023.
 //
 import SwiftUI
-
-struct TodoItem: Identifiable {
+struct ChecklistItem: Identifiable, Hashable {
     let id = UUID()
     var title: String
     var isChecked: Bool = false
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    static func == (lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
+struct ChecklistCategory: Identifiable, Hashable {
+    let id = UUID()
+    var title: String
+    var items: [ChecklistItem]
 }
 
 struct ContentView: View {
-    @State var todos = [
-        TodoItem(title: "Example")
+    @State var categories = [
+        ChecklistCategory(title: "Checklist 1", items: [
+            ChecklistItem(title: "Örnek görev 1"),
+            ChecklistItem(title: "Örnek görev 2"),
+        ]),
+        ChecklistCategory(title: "Checklist 2", items: [
+            ChecklistItem(title: "Örnek görev 3"),
+            ChecklistItem(title: "Örnek görev 4"),
+        ]),
     ]
-    @State private var newTodoTitle: String = ""
-    @State private var isAddingNote = false
+
+    @State private var isAddingChecklist = false
+    @State private var newChecklist: String = ""
+    @State private var itemsToDelete: Set<ChecklistItem> = []
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(todos) { item in
-                    HStack {
-                        Image(systemName: item.isChecked ? "checkmark.circle" : "circle")
-                        Text(item.title)
-                        Spacer()
-                    }
-                    .background(Color(.systemBackground))
-                    .onTapGesture {
-                        if let matchingIndex = self.todos.firstIndex(where: { $0.id == item.id }) {
-                            self.todos[matchingIndex].isChecked.toggle()
+        
+        ZStack {
+            VStack {
+                NavigationView {
+                    List {
+                        ForEach(categories) { category in
+                            NavigationLink(destination: ChecklistView(category: category)) {
+                                Text(category.title)
+                            }
                         }
+                        .onDelete(perform: deleteItems)
+                    }
+                    .navigationBarTitle("Checklists")
+                    .navigationBarItems(leading: EditButton())
+
+                }
+            }
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        isAddingChecklist = true
+                       
+                        
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                            .resizable()
+                            .frame(width: 48, height: 48)
+                            .padding()
                     }
                 }
-                .onDelete(perform: deleteListItem)
-                .onMove(perform: moveListItem)
             }
-            .navigationBarItems(leading: EditButton(), trailing:
-                Button(action: {
-                    isAddingNote = true
-                }) {
-                    Image(systemName: "plus")
-                }
-            )
-            .navigationBarTitle("Checklist")
-        }
-        .sheet(isPresented: $isAddingNote) {
+        }.sheet(isPresented: $isAddingChecklist) {
             NavigationView {
                 Form {
-                    Section(header: Text("New To Do")) {
-                        TextEditor(text: $newTodoTitle)
+                    Section(header: Text("New Checklist")) {
+                        TextField("Checklist Name", text: $newChecklist)
                     }
                 }
-                .navigationBarTitle("Add To Do")
+                .navigationBarTitle("Add Checklist")
                 .navigationBarItems(leading:
-                    Button("Cancel") {
-                        isAddingNote = false
-                    },
-                trailing:
-                    Button("Save") {
-                        addNewItem()
-                    }
+                                        Button("Cancel") {
+                    isAddingChecklist = false
+                },
+                                    trailing:
+                                        Button("Save") {
+                    addNewChecklist()
+                }
                 )
             }
         }
-    }
+        }
     
-    func deleteListItem(whichElement: IndexSet) {
-        todos.remove(atOffsets: whichElement)
-    }
-    
-    func moveListItem(whichElement: IndexSet, destination: Int) {
-        todos.move(fromOffsets: whichElement, toOffset: destination)
-    }
-    
-    func addNewItem() {
-        if !newTodoTitle.isEmpty {
-            let newItem = TodoItem(title: newTodoTitle)
-            todos.append(newItem)
-            newTodoTitle = ""
-            isAddingNote = false
+    func addNewChecklist() {
+        if !newChecklist.isEmpty {
+            let newItem =     ChecklistCategory(title: newChecklist, items: [])
+            categories.append(newItem)
+            newChecklist = ""
+            isAddingChecklist = false
         }
     }
+    
+    
+        
+        func deleteItems(whichElement: IndexSet) {
+            categories.remove(atOffsets: whichElement)
+        }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+
 
 #Preview {
     ContentView()
 }
+

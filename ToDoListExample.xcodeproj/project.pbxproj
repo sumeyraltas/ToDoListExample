@@ -11,6 +11,7 @@
 		0262823A2AF8E76700AC6291 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026282392AF8E76700AC6291 /* ContentView.swift */; };
 		0262823C2AF8E76800AC6291 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0262823B2AF8E76800AC6291 /* Assets.xcassets */; };
 		0262823F2AF8E76800AC6291 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0262823E2AF8E76800AC6291 /* Preview Assets.xcassets */; };
+		0285E38E2AF8FC1B001F5DAD /* ChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0285E38D2AF8FC1B001F5DAD /* ChecklistView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		026282392AF8E76700AC6291 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0262823B2AF8E76800AC6291 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0262823E2AF8E76800AC6291 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0285E38D2AF8FC1B001F5DAD /* ChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				026282372AF8E76700AC6291 /* ToDoListExampleApp.swift */,
 				026282392AF8E76700AC6291 /* ContentView.swift */,
+				0285E38D2AF8FC1B001F5DAD /* ChecklistView.swift */,
 				0262823B2AF8E76800AC6291 /* Assets.xcassets */,
 				0262823D2AF8E76800AC6291 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0285E38E2AF8FC1B001F5DAD /* ChecklistView.swift in Sources */,
 				0262823A2AF8E76700AC6291 /* ContentView.swift in Sources */,
 				026282382AF8E76700AC6291 /* ToDoListExampleApp.swift in Sources */,
 			);
