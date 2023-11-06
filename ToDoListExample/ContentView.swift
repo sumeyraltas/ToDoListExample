@@ -14,8 +14,7 @@ struct TodoItem: Identifiable {
 
 struct ContentView: View {
     @State var todos = [
-        TodoItem(title: "Örnek görev 1"),
-        TodoItem(title: "Örnek görev 2"),
+        TodoItem(title: "Example")
     ]
     @State private var newTodoTitle: String = ""
     @State private var isAddingNote = false
