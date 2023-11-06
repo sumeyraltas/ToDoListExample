@@ -104,15 +104,10 @@ struct ContentView: View {
             isAddingChecklist = false
         }
     }
-    
-    
-        
         func deleteItems(whichElement: IndexSet) {
             categories.remove(atOffsets: whichElement)
         }
 }
-
-
 
 #Preview {
     ContentView()
