@@ -22,7 +22,6 @@ struct ChecklistView: View {
     @State private var isAddingNote = false
     var category: ChecklistCategory
     var body: some View {
-        NavigationView {
             List {
                 ForEach(todos) { item in
                     HStack {
@@ -51,7 +50,6 @@ struct ChecklistView: View {
                           }
             )
             .navigationBarTitle(category.title)
-        }
         .sheet(isPresented: $isAddingNote) {
             NavigationView {
                 Form {
